@@ -42,6 +42,11 @@ def thermostat():
     return render_template("thermostat.html")
 
 
+@app.route('/resume')
+def resume():
+    return render_template("resume.html")
+
+
 @app.route('/on_off', methods=['GET', 'POST'])
 def on_off():
     x = request.form.get('status', 0, type=int)
@@ -60,7 +65,6 @@ def get_status():
     #temp = temp * 1.8 + 32
     temp = 42
     return jsonify([GPIO.input("P9_13"), temp])
-
 
 if __name__ == "__main__":
     app.run()

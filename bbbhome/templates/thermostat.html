@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="/static/css/normalize.css">
     <link rel="stylesheet" type="text/css" href="/static/css/skeleton.css">
     <link rel="stylesheet" type="text/css" href="/static/css/style.css">
-    <link rel="icon" type="/image/vnd.microsoft.icon" href="/images/favicon.ico">
+    <link rel="icon" type="image/vnd.microsoft.icon" href="static/images/favicon.ico">
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="/static/javascript/Thermostat.js"></script>
     <!-- <script> window.addEventListener("load", ) </script> -->
@@ -15,8 +15,12 @@
     <div class="container">
       <div class="row animate on load">
         <nav>
-          <div class="four columns">
-            <a href="/"><img src="/static/images/beagle.png" class="u-pull-left" id="profile-image"></a>
+          <div class="twelve columns">
+            <a href="{{ url_for('homepage') }}"><img src="static/images/beagle.png" class="u-pull-left" id="profile-image"></a>
+            <div class="automation-btn">
+              <a href="{{ url_for('resume') }}">Resume</a>
+              <a href="{{ url_for('thermostat') }}">Home Automation</a>
+            </div>
           </div>
         </nav>
       </div>
@@ -42,3 +46,5 @@
         </div>
       </div>
     </div>
+  </body>
+</html>

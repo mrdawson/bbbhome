@@ -17,8 +17,11 @@
       <div class="row animate on load">
         <nav>
           <div class="twelve columns">
-            <a href="/"><img src="static/images/beagle.png" class="u-pull-left" id="profile-image"></a>
-            <div class="automation-btn"><a href="/thermostat">Home Automation</a></div>
+            <a href="{{ url_for('homepage') }}"><img src="static/images/beagle.png" class="u-pull-left" id="profile-image"></a>
+            <div class="automation-btn">
+              <a href="{{ url_for('resume') }}">Resume</a>
+              <a href="{{ url_for('thermostat') }}">Home Automation</a>
+            </div>
           </div>
         </nav>
       </div>
@@ -29,7 +32,12 @@
           <div class='twelve columns'>
             <h1>Hi, I'm Carl Dawson</h1>
             <p>I'm a physicist/computer engineer working at Stanford University.</p>
-            <p>This site will eventually have a password protected webapp which will contol the GPIO pins on a beaglebone black, the same device which is hosting this server.
+            <p>This Flask powered website is hosted on a Beaglebone Black
+            micro-computer making use of the LAMP stack. The Beaglebone is
+            connected to some custom circuitry, resulting in a versatile,
+            scalable home automation web application. Currently, the system
+            functions as a thermostat with an on/off switch, live temperature
+            display, and temperature set point.</p>
           </div>
         </div>
       </div>
