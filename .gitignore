@@ -1,4 +1,4 @@
-#file types to ignore
+co#file types to ignore
 
 *.txt
 *.pyc
