@@ -19,10 +19,10 @@ app.config['BASIC_AUTH_PASSWORD'] = auth[1]
 basic_auth = BasicAuth(app)
 
 # Initialize GPIO pin
-GPIO.setup("P9_11", GPIO.OUT)
-GPIO.setup("P9_11", GPIO.OUT, delay=50)
-GPIO.setup("P9_13", GPIO.IN)
-GPIO.setup("P9_13", GPIO.IN, delay=50)
+GPIO.setup("P9_11", GPIO.OUT, delay=200)
+GPIO.setup("P9_11", GPIO.OUT, delay=200)
+GPIO.setup("P9_13", GPIO.IN, delay=200)
+GPIO.setup("P9_13", GPIO.IN, delay=200)
 
 # Initialize ADC pin
 #ADC.setup()
