@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <title>Carl Dawson</title>
-    <meta name="description" content="Carl Dawson's personal site.">
-    <meta name="author" content="Carl Dawson">
-    <meta charset="utf-8"/>
+    <meta charset="UTF-8" />
     <link rel="stylesheet" type="text/css" href="../static/css/normalize.css">
     <link rel="stylesheet" type="text/css" href="../static/css/skeleton.css">
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/vnd.microsoft.icon" href="../static/images/favicon.ico">
-  </head>
-
-  <body>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
     <div class="container">
       <div class="row animate on load">
         <nav>
@@ -29,19 +26,23 @@
       </div>
     </div>
     <div class="wrapper">
-      <div class="container white-overlap">
-        <div class="row animate-on-load" id="main_content">
-          <div class='twelve columns'>
-            <h1>I'm Carl Dawson</h1>
-            <p>I'm a physicist/engineer working at Stanford University.</p>
-            <p>This Flask powered website is hosted on a Beaglebone Black
-            micro-computer making use of the LAMP (Linux Apache mySQL Python) stack. I built a simple web app can
-	    be configured to interface with the processor's GPIO pins.
-	    Currently, the system functions as a simple thermostat and stores
-	    temperature data in an SQL database.</p>
-          </div>
+        <div class="container white-overlap">
+            <div class="row animate-on-load" id="main_content">
+                <div class="twelve columns">
+                    <h1>Projects</h1>
+                </div>
+            </div>
+            <div class="row animate-on-load">
+                <div class="twelve columns">
+                    <a class="button" href="{{ url_for('mac1700') }}">MAC1700 Restoration</a>
+                </div>
+            </div>
+            <div class="row animate-on-load">
+                <div class="twelve columns">
+                    <a class="button" href="{{ url_for('klh20') }}">KLH Model 20 Restoration</a>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
     <div class="container">
       <div class="row animate on load">
@@ -54,5 +55,5 @@
         </nav>
       </div>
     </div>
-  </body>
+</body>
 </html>

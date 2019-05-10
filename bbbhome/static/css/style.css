@@ -102,6 +102,45 @@ button {
 	top: 2px;
 }
 
+.social-btn {
+  margin-top: 30px;
+  float: right;
+}
+
+.social-btn a {
+  cursor: pointer;
+
+  padding: 8px 18px;
+  border: 1px solid #204156;
+  position: relative;
+  color: inherit;
+
+}
+
+.social-btn a:active {
+	top: 2px;
+}
+
+
+.norm-btn {
+  margin-top: 30px;
+  float: left;
+}
+
+.norm-btn a {
+  cursor: pointer;
+
+  padding: 8px 18px;
+  border: 1px solid #204156;
+  position: relative;
+  color: black;
+
+}
+
+.norm-btn a:active {
+	top: 2px;
+}
+
 @media (min-width: 750px) {
   .container.white-overlap::before {
     width: 100%;
@@ -114,3 +153,4 @@ button {
   height: 4em;
   /*display: none;*/
 }
+
