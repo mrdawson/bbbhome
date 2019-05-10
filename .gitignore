@@ -1,4 +1,11 @@
-co#file types to ignore
+#file types to ignore
 
-*.txt
+auth.txt
 *.pyc
+
+.idea/
+
+# Flask stuff:
+instance/
+.webassets-cache
+
