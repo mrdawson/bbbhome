@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <div class="wrapper">
+        <div class="container white-overlap">
+            <div class="row animate-on-load" id="main_content">
+                <div class="twelve columns">
+                    <h1>Manage {{ username }}</h1>
+                    <form action="" method="post">
+                        {{ form.hidden_tag() }}
+                        <h3>Access Levels</h3>
+                        <div class="form-row">
+                            <li>{{ form.pleb() }} </li>
+                            <li>{{ form.pleb.label }}</li>
+                        </div>
+                        <div class="form-row">
+                            <li>{{ form.homie() }} </li>
+                            <li>{{ form.homie.label }}</li>
+                        </div>
+                        <div class="form-row">
+                            <li>{{ form.wizard() }} </li>
+                            <li>{{ form.wizard.label }}</li>
+                        </div>
+                        <div class="form-row">
+                            <li>{{ form.admin() }} </li>
+                            <li>{{ form.admin.label }}</li>
+                        </div>
+                        <p>{{ form.submit() }}</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

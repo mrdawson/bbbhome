@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <div class="twelve columns">
+        <h1>Projects</h1>
+    </div>
+    <div class="twelve columns">
+        <a class="button" href="{{ url_for('projects.mac1700') }}">MAC1700 Restoration</a>
+    </div>
+    <div class="twelve columns">
+        <a class="button" href="{{ url_for('projects.klh20') }}">KLH Model 20 Restoration</a>
+    </div>
+{% endblock %}

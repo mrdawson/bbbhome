@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <div class='twelve columns'>
+        <object data="/static/images/_resume.pdf" type="application/pdf" width="850px"
+                height="1200px">
+            <embed src="/static/images/_resume.pdf">
+            This browser does not support PDFs. Please download the PDF to view it: <a
+                href="static/images/_resume.pdf">Download PDF</a>.
+        </object>
+        <!--<embed src="/static/images/_resume.pdf" width="850" height="1100">-->
+    </div>
+{% endblock %}

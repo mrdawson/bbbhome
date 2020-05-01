@@ -1,0 +1,259 @@
+body {
+    font-family: "Courier New", Courier, monospace;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #aeb1b7;
+}
+
+p {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 1.3em;
+    max-width: 66ch;
+    opacity: 0.8;
+    margin-bottom: 2em;
+}
+
+/* Navigation */
+nav {
+    padding-top: 42px;
+    padding-bottom: 7px;
+}
+
+
+nav.primary ul,
+nav.primary ul li {
+    margin: 0px;
+    display: inline;
+    position: relative;
+}
+
+nav.primary select {
+    display: none;
+    width: 100%;
+    height: 28px;
+    margin: 21px 0;
+}
+
+nav.primary ul li {
+    display: inline;
+    position: relative;
+}
+
+nav.primary ul li a {
+    display: inline-block;
+    padding: 0 14px;
+    line-height: 14px;
+}
+
+nav.primary ul li a:hover {
+    background: #fdfdfd;
+    cursor: pointer;
+}
+
+/*sub menu*/
+nav.primary ul ul {
+    opacity: 0;
+    filter: alpha(opacity=0);
+
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 999999;
+
+    height: 0px;
+    overflow: hidden;
+
+    min-width: 100%;
+
+    -webkit-transition: opacity 0.4s ease-out;
+    -moz-transition: opacity 0.4s ease-out;
+    -o-transition: opacity 0.4s ease-out;
+    -ms-transition: opacity 0.4s ease-out;
+    transition: opacity 0.4s ease-out;
+}
+
+nav.primary ul li span {
+    display: none;
+}
+
+nav.primary ul li:hover ul {
+    opacity: 10;
+    filter: alpha(opacity=100);
+    list-style: none;
+    padding-top: 14px;
+
+    height: auto;
+    overflow: auto;
+
+    display: block;
+}
+
+nav.primary ul ul li {
+    float: none;
+    display: list-item;
+    border-bottom: 1px solid #383737;
+}
+
+nav.primary ul ul li a {
+    display: block;
+    line-height: 35px;
+    position: relative;
+    z-index: 999999;
+    background: #fdfdfd;
+}
+
+nav.primary ul li:hover > a {
+    background: none;
+}
+
+/* End Navigation */
+
+header {
+    margin-top: 4em;
+    margin-bottom: 2em;
+}
+
+h1 {
+    margin-top: 14px;
+}
+
+a {
+    color: #000000;
+    text-decoration: none;
+}
+
+button {
+    font-size: 1em;
+}
+
+.form-row{
+    display: block;
+}
+
+.form-row li{
+    display: inline-block;
+    vertical-align: baseline;
+}
+
+.inline {
+    display: inline-block
+}
+
+.wrapper {
+    background: #fdfdfd;
+    /*background: linear-gradient(to bottom right, #9fd4a5, #9fd4a5);*/
+    /*background-position: right 1em;*/
+    /*background-repeat: no-repeat;
+    background-attachment: fixed;*/
+    margin-bottom: 8em;
+    /*User to be negative to allow space for profile picture*/
+    margin-top: -1em;
+}
+
+.container {
+    margin-top: -1em;
+}
+
+.container.white-overlap::before {
+    content: '';
+    background: #aeb1b7;
+    height: 0;
+    width: 0;
+}
+
+.row {
+    margin-bottom: 1em;
+}
+
+.filled {
+    background-color: #aeb1b7;
+}
+
+/*Animations*/
+
+@keyframes loading_animation {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.animate-on-load {
+    animation-name: loading_animation;
+    animation-duration: 2s;
+}
+
+.automation-btn {
+    margin-top: 30px;
+    float: right;
+}
+
+.automation-btn a {
+    cursor: pointer;
+
+    padding: 8px 18px;
+    border: 1px solid #204156;
+    position: relative;
+    color: inherit;
+
+}
+
+.automation-btn a:active {
+    top: 2px;
+}
+
+.social-btn {
+    margin-top: 0px;
+    float: right;
+}
+
+.social-btn a {
+    cursor: pointer;
+
+    padding: 8px 18px;
+    border: 1px solid #204156;
+    position: relative;
+    color: inherit;
+
+}
+
+.social-btn a:active {
+    top: 2px;
+}
+
+
+.norm-btn {
+    margin-top: 30px;
+    float: left;
+}
+
+.norm-btn a {
+    cursor: pointer;
+
+    padding: 8px 18px;
+    border: 1px solid #204156;
+    position: relative;
+    color: black;
+
+}
+
+.norm-btn a:active {
+    top: 2px;
+}
+
+@media (min-width: 750px) {
+    .container.white-overlap::before {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+#profile-image {
+    width: auto;
+    height: 4em;
+    /*display: none;*/
+}
+

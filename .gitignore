@@ -1,7 +1,9 @@
 #file types to ignore
 
-auth.txt
+*.db
+
 *.pyc
+/venv
 
 .idea/
 
@@ -9,3 +11,5 @@ auth.txt
 instance/
 .webassets-cache
 
+# PyCharm stuff
+.idea/

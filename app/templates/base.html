@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Carl Dawson</title>
+    <meta name="description" content="Carl Dawson's personal site.">
+    <meta name="author" content="Carl Dawson">
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <link rel="stylesheet" href="/static/css/skeleton.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/vnd.microsoft.icon" href="/static/images/favicon.ico">
+</head>
+
+<body>
+
+<div class="container">
+    <div class="row animate on load">
+        <nav class="primary">
+            <ul>
+                <li><a href="{{ url_for("main.index") }}"><img src="/static/images/beagle.png"
+                                                               id="profile-image"
+                                                               alt="Home"></a></li>
+            </ul>
+            <ul>
+                <li><a href="{{ url_for("main.index") }}">Home</a></li>
+                <li><a href="{{ url_for("main.projects") }}">Projects</a></li>
+                <li><a href="{{ url_for("main.resume") }}">R&eacute;sum&eacute;</a></li>
+                <li><a href="{{ url_for("spellbook.thermostat") }}">Thermostat</a></li>
+                <li>
+                    {% if current_user.is_anonymous %}
+                        <a>Account</a>
+                    {% else %}
+                        <a>{{ current_user.username }}</a>
+                    {% endif %}
+                    <ul>
+                        {% if current_user.is_anonymous %}
+                            <li><a href="{{ url_for("auth.login") }}">Login</a></li>
+                            <li><a href="{{ url_for("auth.register") }}">Register</a></li>
+                        {% else %}
+                            <li>
+                                <a href="{{ url_for("main.user", username=current_user.username) }}">Profile</a>
+                            </li>
+                            <li><a href="{{ url_for("auth.logout") }}">Logout</a></li>
+                        {% endif %}
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<div class="row animate on load">
+    <div class="wrapper">
+        <div class="container white-overlap">
+            <div class="row animate-on-load" id="main_content">
+                {% block content %}
+                    <div class="twelve columns">
+                        <br>
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                    {{ message }}
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                    {% block app_content %}{% endblock %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row animate on load">
+        <div class="twelve columns">
+            <div class="social-btn">
+                <a href="https://www.linkedin.com/in/csdawson/">LinkedIn</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

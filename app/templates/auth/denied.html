@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <div class="wrapper">
+        <div class="container white-overlap">
+            <div class="row animate-on-load" id="main_content">
+                <div class="twelve columns">
+                    <h1>Access Denied</h1>
+                    <p>{{ msg }}</p>
+                    <p>To request access, contact <a href="mailto:admin@carlsdawson.com">admin@carlsdawson.com</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
