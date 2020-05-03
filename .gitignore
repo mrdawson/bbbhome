@@ -4,6 +4,8 @@
 
 *.pyc
 /venv
+.env
+/__pycache__
 
 .idea/
 

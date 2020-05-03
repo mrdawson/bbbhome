@@ -3,15 +3,18 @@ document.addEventListener("DOMContentLoaded", function () {
         url: "/spellbook/thermostat/get_status",
         type: 'GET',
         success: function (output) {
-            if (output[0] === '0') {
+            if (output[0] === 'off') {
                 $('#off_btn').addClass('filled');
-            } else if (output[0] === '1') {
+                $('#on_btn').removeClass('filled');
+            } else if (output[0] === 'on') {
                 $('#on_btn').addClass('filled');
+                $('#off_btn').removeClass('filled');
             } else {
                 console.log(output);
                 $('#off_btn').addClass('filled');
+                $('#on_btn').removeClass('filled');
             }
-            var temperature = Number(output[1]).toFixed(2)
+            let temperature = Number(output[1]).toFixed(2)
             $('#temp').text(temperature)
         },
         error: function (xhr, desc, err) {
@@ -23,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let data = [];
     $.ajax({
-        url: "spellbook/thermostat/get_t_data",
+        url: "spellbook/thermostat/get_temperature_data",
         type: 'GET',
         success: function (output) {
             data = output;
@@ -48,23 +51,25 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+
 $(document).ready(function () {
     setInterval(function () {
         $.ajax({
             url: "/spellbook/thermostat/get_status",
             type: "GET",
             success: function (output) {
-                if (output[0] === '0') {
+                if (output[0] === 'off') {
                     $('#off_btn').addClass('filled');
                     $('#on_btn').removeClass('filled');
-                } else if (output[0] === '1') {
+                } else if (output[0] === 'on') {
                     $('#on_btn').addClass('filled');
                     $('#off_btn').removeClass('filled');
                 } else {
                     console.log(output);
                     $('#off_btn').addClass('filled');
+                    $('#on_btn').removeClass('filled');
                 }
-                var temperature = Number(output[1]).toFixed(2)
+                let temperature = Number(output[1]).toFixed(2)
                 $('#temp').text(temperature)
             }
         });
@@ -77,7 +82,7 @@ $(document).ready(function () {
         $.ajax({
             url: '/spellbook/thermostat/on_off',
             type: 'POST',
-            data: {'status': 1},
+            data: {'status': 'on'},
             success: function (output) {
                 console.log(output)
             },
@@ -95,7 +100,7 @@ $(document).ready(function () {
         $.ajax({
             url: '/spellbook/thermostat/on_off',
             type: 'POST',
-            data: {'status': 0},
+            data: {'status': 'off'},
             success: function (output) {
                 console.log(output)
             },
@@ -105,13 +110,5 @@ $(document).ready(function () {
                 console.log("Details: " + desc + "\nError:" + err);
             }
         });
-    });
-
-    $('#timed').click(function () {
-        if ($(this).hasClass('filled')) {
-            $(this).removeClass('filled');
-        } else {
-            $(this).addClass('filled');
-        }
     });
 });

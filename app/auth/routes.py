@@ -28,9 +28,19 @@ def login():
         return redirect(url_for("main.index"))
     form = LoginForm()
     if form.validate_on_submit():
+        if not form.username.data:
+            flash("enter a username")
+            return redirect(url_for("auth.login"))
+        if not form.password.data:
+            flash("enter a password")
+            return redirect(url_for("auth.login"))
         user = User.query.filter_by(username=form.username.data.lower()).first()
-        if not user or not user.check_password(form.password.data):
-            flash("invalid username or password")
+        print(user, user.roles, form.password.data, user.check_password(form.password.data))
+        if not user:
+            flash(f"no account is registered with the username '{form.username.data.lower()}'")
+            return redirect(url_for("auth.login"))
+        if not user.check_password(form.password.data):
+            flash("invalid username/password combination")
             return redirect(url_for("auth.login"))
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get("next")
