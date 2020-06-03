@@ -14,6 +14,32 @@ p {
     margin-bottom: 2em;
 }
 
+.alert-info {
+    color: red;
+    font-size: 1.3em;
+}
+
+/* Dynamic Grid Flex */
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  padding: 10px;
+}
+
+.flex-cell {
+  display: flex;
+  flex: 50%;
+  padding: 10px;
+  /*height: 100px;*/
+}
+
+.flex-data {
+  width: 100%;
+  justify-content: left;
+  flex: 1;
+}
+
 /* Navigation */
 nav {
     padding-top: 42px;

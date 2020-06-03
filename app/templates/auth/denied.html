@@ -6,6 +6,12 @@
             <div class="row animate-on-load" id="main_content">
                 <div class="twelve columns">
                     <h1>Access Denied</h1>
+                    {% if "Pleb" in usr_clearance %}
+                        <p>Sorry, you are a Pleb, which means you have literally zero account privileges on this site</p>
+                    {% else %}
+                        <p>Sorry {{ current_user.username }}, you must be a {{ clearance }} to view that page.</p>
+                        <p>You are currently a {{ usr_clearance }}</p>
+                    {% endif %}
                     <p>{{ msg }}</p>
                     <p>To request access, contact <a href="mailto:admin@carlsdawson.com">admin@carlsdawson.com</a></p>
                 </div>

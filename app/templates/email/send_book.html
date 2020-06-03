@@ -1,0 +1,14 @@
+<p>Hi {{ user.username[0]|upper}}{{user.username[1:] }},</p>
+<p>
+    Enjoy your new book:
+</p>
+
+<p><b>{{ book.title }}</b> by {{ authors|join(", ") }}</p>
+
+<br>
+<p><i>{{ ["May the odds be ever in your favor", "May the force be with you",
+       "Death is light as a feather; duty, heavy as a mountain", "Valar morghulis",
+       "Winter is coming", "Mischief managed", "Dovie'andi se tovya sagain",
+       "So long, and thanks for all the fish",
+       "The road goes ever on and on"] | random }}</i></p>
+<p>Carl</p>

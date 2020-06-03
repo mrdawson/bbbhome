@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+    <script src="/static/javascript/jquery/jquery-3.5.0.min.js"></script>
+{% endblock %}
+
+{% block app_content %}
+    <div class="twelve columns">
+        <h1>{{ current_user.username[0]|upper }}{{ current_user.username[1:] }}'s Devices</h1>
+        <p>For Kindle users, don't forget to add library@carlsdawson.com to your
+            <a href="https://www.amazon.com/hz/mycd/myx#/home/settings/" target="_blank">
+                <span style="text-decoration: underline">Approved Personal Document Email List</span>
+            </a> under "Personal Document Settings"</p>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th></th>
+            </tr>
+            {% for dev in current_user.devices %}
+                <tr>
+                    <th>{{ dev.name }}</th>
+                    <th>{{ dev.email }}</th>
+                    <th id="remove_{{ dev.id }}">
+                        <a href="javascript:remove_device('#remove_{{ dev.id }}')">
+                            <button id="remove_{{ dev.id }}">X</button>
+                        </a>
+                    </th>
+                </tr>
+            {% endfor %}
+        </table>
+        <a href={{ url_for("library.new_device") }}>
+            <button>Add Device</button>
+        </a>
+    </div>
+
+    <script type="text/javascript">
+        function remove_device(sourceElem) {
+            const dev_id = Number($(sourceElem)[0].id.split("_")[1]);
+            $(sourceElem)[0].closest('tr').remove();
+            $.post('/library/manage_devices/remove_device', {
+                device_id: dev_id
+            }).done(function (response) {
+                console.log(response);
+            }).fail(function () {
+                console.log("Server side Error");
+            });
+        }
+    </script>
+{% endblock %}

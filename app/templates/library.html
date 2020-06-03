@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+    <script src="/static/javascript/jquery/jquery-3.5.0.min.js"></script>
+{% endblock %}
+
+{% block app_content %}
+    <div class='twelve columns'>
+        <h1>Welcome to the Library</h1>
+        <a href="{{ url_for("library.stacks") }}"><button>Browse the Stacks</button></a>
+        <br>
+        <a href="{{ url_for("library.manage_devices") }}"><button>Manage your Devices</button></a>
+        <br><br>
+    </div>
+    <div class='twelve columns'>
+        <h2>Recently Added</h2>
+        <div class="flex-container">
+            {% for book in books %}
+                <div class="flex-cell">
+                    <span class="flex-data">
+                        {% include "/library/_book.html" %}
+                    </span>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div>
+        <p>{{ last_seen_str }}</p>
+    </div>
+{% endblock %}
