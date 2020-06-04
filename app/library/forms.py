@@ -16,22 +16,9 @@ class SearchForm(FlaskForm):
         super().__init__(*args, **kwargs)
 
 
-class SendBookForm(FlaskForm):
-    request_id = HiddenField()
-    email = SelectField("Email to", choices=[])
-    format = SelectField("Format", choices=[])
-    send = SubmitField("Send")
-
-    def set_emails(self, emails):
-        self.email.choices = [(e, t) for e, t in emails]
-
-    def set_formats(self, formats):
-        self.format.choices = [(f, f) for f in formats]
-
-
 class NewDeviceForm(FlaskForm):
-    name = StringField(validators=[DataRequired()])
-    email = StringField(validators=[DataRequired(), Email()])
+    name = StringField("Nickname", validators=[DataRequired()])
+    email = StringField("Device Email", validators=[DataRequired(), Email()])
     submit = SubmitField("Add Device")
 
     def validate_email(self, email):
