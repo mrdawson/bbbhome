@@ -1,8 +1,6 @@
 from flask import Flask
 from config import Config
-from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_login import LoginManager
 import logging
 from logging.handlers import SMTPHandler
 from logging.handlers import RotatingFileHandler
@@ -12,10 +10,9 @@ from flask_mail import Mail
 from flask_util_js import FlaskUtilJs
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from .models import db, login
 
-db = SQLAlchemy()
 migrate = Migrate()
-login = LoginManager()
 login.login_view = "auth.login"
 mail = Mail()
 fujs = FlaskUtilJs()
@@ -73,10 +70,10 @@ def create_app(config_class=Config):
                 toaddrs=app.config["ADMINS"], subject="carlsdawson.com Error",
                 credentials=auth, secure=secure)
             mail_handler.setLevel(logging.ERROR)
-            app.logger.adHandler(mail_handler)
-        if not os.path.exists('logs'):
-            os.mkdir('logs')
-        file_handler = RotatingFileHandler('logs/carlsdawson.log', maxBytes=10240,
+            app.logger.addHandler(mail_handler)
+        if not os.path.exists('/var/log/carlsdawson'):
+            os.mkdir('/var/log/carlsdawson')
+        file_handler = RotatingFileHandler('/var/log/carlsdawson/carlsdawson.log', maxBytes=10240,
                                            backupCount=10)
         file_handler.setFormatter(logging.Formatter(
             '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
@@ -89,4 +86,4 @@ def create_app(config_class=Config):
     return app
 
 
-from app import models, errors
+from . import models, errors

@@ -1,20 +1,24 @@
-from app import db, login
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from hashlib import md5
 from datetime import datetime
-from app.helpers import get_book_cover
-from app.search import add_to_index, remove_from_index, query_index
+from .helpers import get_book_cover
+from .search import add_to_index, remove_from_index, query_index
 from time import time
 import jwt
 from flask import current_app
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 
+db = SQLAlchemy()
+login = LoginManager()
 
 ############################### SITE MODELS ####################################
 
 
 class User(UserMixin, db.Model):
     __tablename__ = "users"
+    __bind_key__ = "site"
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(128), index=True, unique=True)
@@ -77,6 +81,7 @@ def load_user(id):
 
 class Role(db.Model):
     __tablename__ = "roles"
+    __bind_key__ = "site"
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(16), unique=True)
 
@@ -91,6 +96,7 @@ roles_table = db.Table(
     "user_roles",
     db.Column("user_id", db.Integer(), db.ForeignKey("users.id", ondelete="CASCADE")),
     db.Column("role_id", db.Integer(), db.ForeignKey("roles.id", ondelete="CASCADE")),
+    info={"bind_key": "site"}
 )
 
 
@@ -98,11 +104,13 @@ rooms_table = db.Table(
     "user_rooms",
     db.Column("user_id", db.Integer(), db.ForeignKey("users.id", ondelete="CASCADE")),
     db.Column("room_id", db.Integer(), db.ForeignKey("rooms.id", ondelete="CASCADE")),
+    info={"bind_key": "site"}
 )
 
 
 class Device(db.Model):
     __tablename__ = "devices"
+    __bind_key__ = "site"
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(64))
     email = db.Column(db.String(128), index=True, unique=True)
@@ -114,6 +122,7 @@ class Device(db.Model):
 
 class Post(db.Model):
     __tablename__ = "posts"
+    __bind_key__ = "site"
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(256))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
@@ -126,6 +135,7 @@ class Post(db.Model):
 
 class Room(db.Model):
     __tablename__ = "rooms"
+    __bind_key__ = "site"
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(64), unique=True)
     posts = db.relationship("Post", backref="room", lazy="dynamic")
@@ -134,6 +144,7 @@ class Room(db.Model):
 
 # class Temperature(db.Model):
 #     __tablename__ = "temperature"
+#     __bind_key__ = "site"
 #     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 #     volt = db.Column(db.Float)
 #     temp = db.Columnn(db.Float)
@@ -189,44 +200,6 @@ class SearchableMixin:
 
 db.event.listen(db.session, "before_commit", SearchableMixin.before_commit)
 db.event.listen(db.session, "after_commit", SearchableMixin.after_commit)
-
-books_authors_link = db.Table(
-    "books_authors_link",
-    db.Column("book", db.Integer, db.ForeignKey("books.id"), primary_key=True),
-    db.Column("author", db.Integer, db.ForeignKey("authors.id"), primary_key=True),
-)
-
-books_tags_link = db.Table(
-    "books_tags_link",
-    db.Column("book", db.Integer, db.ForeignKey("books.id"), primary_key=True),
-    db.Column("tag", db.Integer, db.ForeignKey("tags.id"), primary_key=True),
-)
-
-books_series_link = db.Table(
-    "books_series_link",
-    db.Column("book", db.Integer, db.ForeignKey("books.id"), primary_key=True),
-    db.Column("series", db.Integer, db.ForeignKey("series.id"), primary_key=True),
-)
-
-books_ratings_link = db.Table(
-    "books_ratings_link",
-    db.Column("book", db.Integer, db.ForeignKey("books.id"), primary_key=True),
-    db.Column("rating", db.Integer, db.ForeignKey("ratings.id"), primary_key=True),
-)
-
-books_languages_link = db.Table(
-    "books_languages_link",
-    db.Column("book", db.Integer, db.ForeignKey("books.id"), primary_key=True),
-    db.Column("lang_code", db.Integer, db.ForeignKey("languages.id"), primary_key=True),
-)
-
-books_publishers_link = db.Table(
-    "books_publishers_link",
-    db.Column("book", db.Integer, db.ForeignKey("books.id"), primary_key=True),
-    db.Column(
-        "publisher", db.Integer, db.ForeignKey("publishers.id"), primary_key=True
-    ),
-)
 
 
 class Identifiers(db.Model):
@@ -416,6 +389,51 @@ class Data(db.Model):
         return "<Data('{0},{1}{2}{3}')>".format(
             self.book, self.format, self.uncompressed_size, self.name
         )
+
+
+books_authors_link = db.Table(
+    "books_authors_link",
+    db.Column("book", db.Integer, db.ForeignKey("books.id"), primary_key=True),
+    db.Column("author", db.Integer, db.ForeignKey("authors.id"), primary_key=True),
+    info={"bind_key": "calibre"}
+)
+
+books_tags_link = db.Table(
+    "books_tags_link",
+    db.Column("book", db.Integer, db.ForeignKey("books.id"), primary_key=True),
+    db.Column("tag", db.Integer, db.ForeignKey("tags.id"), primary_key=True),
+    info={"bind_key": "calibre"}
+)
+
+books_series_link = db.Table(
+    "books_series_link",
+    db.Column("book", db.Integer, db.ForeignKey("books.id"), primary_key=True),
+    db.Column("series", db.Integer, db.ForeignKey("series.id"), primary_key=True),
+    info={"bind_key": "calibre"}
+)
+
+books_ratings_link = db.Table(
+    "books_ratings_link",
+    db.Column("book", db.Integer, db.ForeignKey("books.id"), primary_key=True),
+    db.Column("rating", db.Integer, db.ForeignKey("ratings.id"), primary_key=True),
+    info={"bind_key": "calibre"}
+)
+
+books_languages_link = db.Table(
+    "books_languages_link",
+    db.Column("book", db.Integer, db.ForeignKey("books.id"), primary_key=True),
+    db.Column("lang_code", db.Integer, db.ForeignKey("languages.id"), primary_key=True),
+    info={"bind_key": "calibre"}
+)
+
+books_publishers_link = db.Table(
+    "books_publishers_link",
+    db.Column("book", db.Integer, db.ForeignKey("books.id"), primary_key=True),
+    db.Column(
+        "publisher", db.Integer, db.ForeignKey("publishers.id"), primary_key=True
+    ),
+    info={"bind_key": "calibre"}
+)
 
 
 class Book(SearchableMixin, db.Model):

@@ -16,3 +16,6 @@ instance/
 
 # PyCharm stuff
 .idea/
+
+# db initialization script
+init_db.py

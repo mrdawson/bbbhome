@@ -1,4 +1,4 @@
-from flask import send_from_directory, current_app, safe_join
+from flask import send_from_directory, current_app, safe_join, Response
 import os
 import glob
 import mimetypes
@@ -52,13 +52,16 @@ def get_book_cover(book, use_generic_cover_on_failure):
 
 def get_book_file(book, fmt, as_attachment=True):
     if book:
-        try:
+        if True:
             calibre_path = os.path.join(current_app.config["CALIBRE_PATH"], book.path)
-            book_fname = glob.glob(f"{calibre_path}*/*.{fmt}")[0].split(os.sep)[-1]
+            book_fname = f"{book.data[0].name}.{fmt.lower()}"
             if os.path.isfile(os.path.join(calibre_path, book_fname)):
+                print(f"found '{calibre_path}{os.sep}{book_fname}'")
                 return send_from_directory(calibre_path, book_fname,
                                            mimetype=mimetypes.types_map[f".{fmt.lower()}"],
                                            as_attachment=as_attachment)
+        try:
+            x = 1
         except:
             return
     else:

@@ -15,7 +15,7 @@ def add_to_index(index, model):
                     if len(payload[field]) > 0
                     else None
                 )
-    current_app.elasticsearch.index(index=index, id=model.id, body=payload)
+    current_app.elasticsearch.index(index=index, doc_type="text", id=model.id, body=payload)
 
 
 def remove_from_index(index, model):

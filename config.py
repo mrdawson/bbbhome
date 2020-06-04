@@ -6,14 +6,15 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config(object):
     SECRET_KEY = os.environ.get("SECRET_KEY") or "you-will-never-guess"
-    SQLALCHEMY_DATABASE_URI = os.environ.get(
-        "DATABASE_URI"
+    SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.join(basedir, "default.db")
+    SITE_DATABASE_URI = os.environ.get(
+        "SITE_DATABASE_URI"
     ) or "sqlite:///" + os.path.join(basedir, "app.db")
     CALIBRE_DATABASE_URI = os.environ.get(
         "CALIBRE_DATABASE_URI"
     ) or "sqlite:///" + os.path.join(basedir, "metadata.db")
     SQLALCHEMY_BINDS = {
-        'site': SQLALCHEMY_DATABASE_URI,
+        'site': SITE_DATABASE_URI,
         'calibre': CALIBRE_DATABASE_URI
     }
     SQLALCHEMY_TRACK_MODIFICATIONS = False
