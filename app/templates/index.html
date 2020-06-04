@@ -3,9 +3,15 @@
 {% block app_content %}
     <div class='twelve columns'>
         <h1>I'm Carl Dawson</h1>
-        <p>I'm a physicist/engineer working at Stanford University.</p>
-        <p>This Flask powered website is hosted on a Beaglebone Black
-            micro-computer. Check out the
-            <a href="https://github.com/mrdawson/bbbhome">GitHub repository</a>.</p>
+        <p>I'm a scientist and engineer working at Stanford University.</p>
+        <p class="tight">This Flask powered website is hosted on a Beaglebone Black
+            micro-computer.</p>
+        <img src="{{ url_for('static', filename='images/BBB-Rev-C.jpg') }}" class="center"
+             width="400px">
+        <p>Check out the
+            <a href="https://github.com/mrdawson/bbbhome" target="_blank">
+                <span style="text-decoration: underline">GitHub repository</span>
+            </a>
+        </p>
     </div>
 {% endblock %}

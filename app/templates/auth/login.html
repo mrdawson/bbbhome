@@ -5,15 +5,15 @@
         <h1>Login</h1>
         <form action="" method="post" novalidate>
             {{ form.hidden_tag() }}
-            <p>
-                {{ form.username.label }}<br>
+            <p class="tight">
+                {{ form.username.label }}
                 {{ form.username(size=32) }}<br>
                 {% for error in form.username.errors %}
                     <span style="color: red;">{{ error }}</span>
                 {% endfor %}
             </p>
-            <p>
-                {{ form.password.label }}<br>
+            <p class="tight">
+                {{ form.password.label }}
                 {{ form.password(size=32) }}<br>
                 {% for error in form.password.errors %}
                     <span style="color: red;">{{ error }}</span>
@@ -23,12 +23,10 @@
                 <li>{{ form.remember_me() }}</li>
                 <li>{{ form.remember_me.label }}</li>
             </div>
-            <p>{{ form.submit() }}</p>
+            <p class="tight">{{ form.submit() }}</p>
         </form>
-        <p>New User? <a class="button" href="{{ url_for('auth.register') }}">Register
-            Here</a></p>
-        <p> <a href="{{ url_for('auth.reset_password_request') }}">
-            Forgot Your Password? </a>
-        </p>
+        <p class="tight">New User? <a href="{{ url_for('auth.register') }}"><span style="text-decoration: underline">Register Here</span></a></p>
+        <a href="{{ url_for('auth.reset_password_request') }}">
+            <span style="text-decoration: underline"><p class="tight">Reset Password</p></span> </a>
     </div>
 {% endblock %}

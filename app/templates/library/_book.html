@@ -21,18 +21,11 @@
                 </select>
                 <br>
                 <span>
-                    <a href="javascript:send_book('{{ book.id }}',
-                                                  '#device_{{ book.id }} :selected',
-                                                  '#format_{{ book.id }} :selected',
-                                                  '#send_{{ book.id }}',
-                                                  '#msg_{{ book.id }}')">
+                    <a href="javascript:send_book('{{ book.id }}','#device_{{ book.id }} :selected','#format_{{ book.id }} :selected','#send_{{ book.id }}','#msg_{{ book.id }}')">
                         <button id="send_{{ book.id }}">Send to Device</button>
                     </a>
                 </span>
-                <a href="javascript:download_book('{{ book.id }}',
-                                                  '#format_{{ book.id }} :selected',
-                                                  '#download_{{ book.id }}',
-                                                  '{{ book.data[0].name }}')">
+                <a href="javascript:download_book('{{ book.id }}','#format_{{ book.id }} :selected','#download_{{ book.id }}','{{ book.data[0].name }}')">
                     <button id="download_{{ book.id }}"><i class="fas fa-chevron-down"></i></button>
                 </a>
                 <br>

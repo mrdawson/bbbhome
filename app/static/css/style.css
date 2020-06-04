@@ -14,6 +14,10 @@ p {
     margin-bottom: 2em;
 }
 
+.tight{
+    margin-bottom: 0em;
+}
+
 .alert-info {
     color: red;
     font-size: 1.3em;
@@ -149,8 +153,19 @@ a {
     text-decoration: none;
 }
 
-button {
+.button,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
     font-size: 1em;
+    text-transform: none;
+    font-weight: bold;
+}
+
+.social-btn{
+    border: none; /*1px solid #204156;*/
+    font-weight: normal;
 }
 
 .form-row{
@@ -172,7 +187,7 @@ button {
     /*background-position: right 1em;*/
     /*background-repeat: no-repeat;
     background-attachment: fixed;*/
-    margin-bottom: 8em;
+    margin-bottom: 1em;
     /*User to be negative to allow space for profile picture*/
     margin-top: -1em;
 }
@@ -230,26 +245,6 @@ button {
 .automation-btn a:active {
     top: 2px;
 }
-
-.social-btn {
-    margin-top: 0px;
-    float: right;
-}
-
-.social-btn a {
-    cursor: pointer;
-
-    padding: 8px 18px;
-    border: 1px solid #204156;
-    position: relative;
-    color: inherit;
-
-}
-
-.social-btn a:active {
-    top: 2px;
-}
-
 
 .norm-btn {
     margin-top: 30px;
