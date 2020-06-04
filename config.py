@@ -27,5 +27,5 @@ class Config(object):
     ADMINS = ["autobot@carlsdawson.com", "library@carlsdawson.com", "admin@carlsdawson.com"]
     PLATFORM = os.environ.get("PLATFORM")
     CALIBRE_PATH = os.environ.get("CALIBRE_PATH")
-    ELASTICSEARCH_URL = "http://localhost:9200"
+    ELASTICSEARCH_URL = os.environ.get("ELASTICSEARCH_URL") or "http://localhost:9200"
     BOOKS_PER_PAGE = 20
