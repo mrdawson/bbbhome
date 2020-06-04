@@ -3,36 +3,6 @@
 {% block scripts %}
     <script src="/static/javascript/jquery/jquery-3.5.0.min.js"></script>
     <script src="/static/javascript/infinitescroll/infinite-scroll.pkgd.min.js"></script>
-{% endblock %}
-
-{% block app_content %}
-    <div class='twelve columns'>
-        <h1>Carl's Library</h1>
-        <p>To request a copy of a book, email <a href="mailto:admin@carlsdawson.com">admin@carlsdawson.com</a>
-            with the title/author of the book and your device's @kindle.com address (if I don't
-            already have it). Don't forget to add
-            carlslibrary@gmx.com to your
-            <a href="https://www.amazon.com/hz/mycd/myx#/home/settings/"> Approved Personal Document
-                E-mail List</a> under "Personal Document Settings"</p>
-    </div>
-
-    <select id="sort_by">
-        {% for option in sort_options %}
-            <option value={{ option[0] }}>{{ option[1] }}</option>
-        {% endfor %}
-        <option value=relevance selected>Relevance</option>
-    </select>
-
-    {% if g.search_form %}
-        <form method="get"
-              action="{{ url_for('library.search') }}">
-            <div class="form-group">
-                {{ g.search_form.q(size=20, class='form-control',
-                            placeholder=g.search_form.q.label.text) }}
-            </div>
-        </form>
-    {% endif %}
-
     <script type="text/javascript">
         $(document).ready(function () {
             $("#sort_by").on("change", function () {
@@ -42,25 +12,51 @@
             });
         });
     </script>
+{% endblock %}
 
-    <div class="book-feed"
-         data-infinite-scroll='{ "path": ".pagination__next", "append": ".book", "status": ".scroller-status", "hideNav": ".pagination" }'>
-        {% for book in books %}
-            {% include "/library/_book.html" %}
-        {% endfor %}
+{% block app_content %}
+    <div class='twelve columns'>
+        <h1>The Stacks</h1>
+
+        <select id="sort_by">
+            {% for option in sort_options %}
+                <option value={{ option[0] }}>{{ option[1] }}</option>
+            {% endfor %}
+            <option value=relevance selected>Relevance</option>
+        </select>
+
+        {% if g.search_form %}
+            <form method="get"
+                  action="{{ url_for('library.search') }}">
+                <div class="form-group">
+                    {{ g.search_form.q(size=20, class='form-control',
+                                placeholder=g.search_form.q.label.text) }}
+                </div>
+            </form>
+        {% endif %}
     </div>
 
-    <!-- status elements -->
-    <div class="scroller-status">
-        <div class="infinite-scroll-request loader-ellips">
-            ...
+    <div class="twelve columns">
+    
+        <div class="book-feed"
+             data-infinite-scroll='{ "path": ".pagination__next", "append": ".book", "status": ".scroller-status", "hideNav": ".pagination" }'>
+            {% for book in books %}
+                {% include "/library/_book.html" %}
+            {% endfor %}
         </div>
-        <p class="infinite-scroll-last">End of content</p>
-    </div>
 
-    <p class="pagination">
-        <a class="pagination__next" href={{ next_url }}></a>
-    </p>
+        <!-- status elements -->
+        <div class="scroller-status">
+            <div class="infinite-scroll-request loader-ellips">
+                ...
+            </div>
+            <p class="infinite-scroll-last">End of content</p>
+        </div>
+
+        <p class="pagination">
+            <a class="pagination__next" href={{ next_url }}></a>
+        </p>
+    </div>
 
 
 {% endblock %}
