@@ -1,4 +1,5 @@
 from flask import current_app
+from pprint import pprint
 
 
 def add_to_index(index, model):
@@ -15,7 +16,7 @@ def add_to_index(index, model):
                     if len(payload[field]) > 0
                     else None
                 )
-    current_app.elasticsearch.index(index=index, doc_type="text", id=model.id, body=payload)
+    current_app.elasticsearch.index(index=index, id=model.id, body=payload)
 
 
 def remove_from_index(index, model):
@@ -30,7 +31,14 @@ def query_index(index, query, page, per_page):
     search = current_app.elasticsearch.search(
         index=index,
         body={
-            "query": {"multi_match": {"query": query, "fields": ["*"]}},
+            "query": {
+                "multi_match": {
+                    "query": query,
+                    "type": "best_fields",
+                    "fuzziness": "AUTO",
+                    "fields": ["title^5", "author_sort^2", "tags^1000", "series^5", "*"],
+                }
+            },
             "from": (page - 1) * per_page,
             "size": per_page,
         },
