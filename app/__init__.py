@@ -20,7 +20,6 @@ limiter = Limiter(key_func=get_remote_address,
                   default_limits=["200 per day", "50 per hour"])
 
 
-
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)

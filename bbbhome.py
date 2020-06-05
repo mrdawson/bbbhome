@@ -1,5 +1,10 @@
 from app import create_app
 from app.models import db, User, Role, Book
+import os
+from dotenv import load_dotenv
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+load_dotenv(os.path.join(basedir, '.env'))
 
 app = create_app()
 

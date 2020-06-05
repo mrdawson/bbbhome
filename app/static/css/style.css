@@ -44,6 +44,12 @@ p {
   flex: 1;
 }
 
+img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
 /* Navigation */
 nav {
     padding-top: 42px;
@@ -161,6 +167,7 @@ input[type="button"] {
     font-size: 1em;
     text-transform: none;
     font-weight: bold;
+    max-width: 100%;
 }
 
 .social-btn{
