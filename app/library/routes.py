@@ -108,6 +108,13 @@ def stacks():
         sort_options=sort_options
     )
 
+@bp.route("/stacks/<int:book_id>")
+@login_required
+@roles_required("Scribe")
+def book_info(book_id):
+    book = Book.query.filter_by(id=book_id).first_or_404()
+    return render_template("/library/book_info.html", book=book)
+
 
 @bp.route("/sent")
 @login_required

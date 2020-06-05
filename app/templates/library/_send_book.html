@@ -1,0 +1,73 @@
+<div>
+    <div class="hidden">{{ flask_util_js.js }}</div>
+    <select id="device_{{ book.id }}" name="Device" style="max-width:90%;">
+        {% for dev in current_user.devices %}
+            <option value={{ dev.email }}>{{ dev.name }}</option>
+        {% endfor %}
+        <option value={{ current_user.email }}>{{ current_user.email }}</option>
+    </select>
+
+    <select id="format_{{ book.id }}" name="Format">
+        {% for data in book.data %}
+            <option value={{ data.format }}>{{ data.format }}</option>
+        {% endfor %}s
+    </select>
+    <br>
+    <span>
+        <a href="javascript:send_book('{{ book.id }}','#device_{{ book.id }} :selected','#format_{{ book.id }} :selected','#send_{{ book.id }}','#msg_{{ book.id }}')">
+            <button id="send_{{ book.id }}">Send to Device</button>
+        </a>
+    </span>
+    <a href="javascript:download_book('{{ book.id }}','#format_{{ book.id }} :selected','#download_{{ book.id }}','{{ book.data[0].name }}')">
+        <button id="download_{{ book.id }}"><i class="fas fa-chevron-down"></i></button>
+    </a>
+    <br>
+    <span id="msg_{{ book.id }}" class="hidden"><p></p></span>
+
+    <script type="text/javascript">
+        function send_book(bookId, emailElem, formatElem, sendElem, msgElem) {
+            $(sendElem).html('<img src="{{ url_for('static', filename='images/loading.gif') }}">');
+            console.log(bookId);
+            console.log($(emailElem).val());
+            console.log($(formatElem).val());
+            $.post("/library/send_book", {
+                book_id: bookId,
+                email: $(emailElem).val(),
+                format: $(formatElem).val()
+            }).done(function (response) {
+                console.log(response);
+                if (response.success) {
+                    $(sendElem).html("Sent to " + $(emailElem).text());
+                    $(msgElem).hide();
+                } else {
+                    console.log(response.msg);
+                    $(sendElem).html("Send Failed - Retry");
+                    $(msgElem).html(`<p class='alert-info'>${response.msg} Try the direct download</p>`);
+                    $(msgElem).show();
+                }
+            }).fail(function () {
+                $(sendElem).html("Send Failed - Retry");
+            });
+        }
+
+        function download_book(bookId, formatElem, downloadElem, fName) {
+            $(downloadElem).html('<img src="{{ url_for('static', filename='images/loading.gif') }}">');
+            const format = $(formatElem).val();
+            const downloadURL = flask_util.url_for("library.download_book", {book_id: bookId, fmt: format})
+            const bookFilename = fName + "." + format.toLowerCase();
+            fetch(downloadURL)
+                .then(resp => resp.blob())
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = bookFilename;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);})
+                .catch(() => alert('oh no!'));
+            $(downloadElem).html("<i class=\"fas fa-chevron-down\"></i>");
+        }
+    </script>
+</div>

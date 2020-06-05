@@ -7,9 +7,20 @@
 {% block app_content %}
     <div class='twelve columns'>
         <h1>Welcome to the Library</h1>
-        <a href="{{ url_for("library.stacks") }}"><button>Browse the Stacks</button></a>
+        <p>Congratulations, you have access to my E-Book library. All of the books here are
+            available, and they can be downloaded directly <i class="fas fa-chevron-down"></i> or
+            sent to any of the emails or devices that you have on file. E-Reader devices can
+            be managed by clicking the "Manage your Devices" link below. Book requests or requests
+            for additional file formats can be
+            made to <a href="mailto:admin@carlsdawson.com">library@carlsdawson.com</a>.
+            Happy reading.</p>
+        <a href="{{ url_for("library.stacks") }}">
+            <button>Browse the Stacks</button>
+        </a>
         <br>
-        <a href="{{ url_for("library.manage_devices") }}"><button>Manage your Devices</button></a>
+        <a href="{{ url_for("library.manage_devices") }}">
+            <button>Manage your Devices</button>
+        </a>
         <br>
         {% if g.search_form %}
             <form method="get"

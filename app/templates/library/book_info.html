@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+    <script src="/static/javascript/jquery/jquery-3.5.0.min.js"></script>
+{% endblock %}
+
+{% block app_content %}
+    <div class="twelve columns">
+        <h1>{{ book.title }}</h1>
+        <div class="row">
+            <div class="five columns">
+                <img src="{{ url_for("library.get_cover", book_id=book.id) }}">
+                <br>
+                {% include "/library/_send_book.html" %}
+            </div>
+            <div class="seven columns">
+                {% if book.comments %}
+                    {{ book.comments[0].text | safe}}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
