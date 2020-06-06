@@ -7,10 +7,15 @@
 {% block app_content %}
     <div class="twelve columns">
         <h1>{{ current_user.username[0]|upper }}{{ current_user.username[1:] }}'s Devices</h1>
-        <p>For Kindle users, don't forget to add library@carlsdawson.com to your
+        <p><b>For Kindle users:</b> Find your device's @kindle.com address and add it below, along with a
+            nickname. Don't forget to add <b>library@carlsdawson.com</b> to your
             <a href="https://www.amazon.com/hz/mycd/myx#/home/settings/" target="_blank">
                 <span style="text-decoration: underline">Approved Personal Document Email List</span>
-            </a> under "Personal Document Settings"</p>
+            </a> under "Personal Document Settings". Kindles support the MOBI, AZW1/2/3, PRC, TXT,
+            and PDF formats.</p>
+        <p><b>For non-Kindle users:</b> Delivering books by email is typically not supported, but check
+            with your device's documentation. The direct downloads are probably your best
+            option.</p>
         <table>
             <tr>
                 <th>Name</th>
