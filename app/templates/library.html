@@ -8,7 +8,7 @@
     <div class='twelve columns'>
         <h1>Welcome to the Library</h1>
         <p>Congratulations, you have access to my E-Book library. All of the books here are
-            available, and they can be downloaded directly <i class="fas fa-chevron-down"></i> or
+            available, and they can be downloaded directly or
             sent to any of the emails or devices that you have on file. E-Reader devices can
             be managed by clicking the "Manage your Devices" link below. Book requests or requests
             for additional file formats can be
@@ -38,7 +38,7 @@
             {% for book in books %}
                 <div class="flex-cell">
                     <span class="flex-data">
-                        {% include "/library/_book.html" %}
+                        {% include "/library/_book.html" %}font
                     </span>
                 </div>
             {% endfor %}
@@ -47,4 +47,7 @@
     <div>
         <p>{{ last_seen_str }}</p>
     </div>
+    <a href="{{ url_for("library.stacks") }}">
+        <button>Browse the Stacks</button>
+    </a>
 {% endblock %}

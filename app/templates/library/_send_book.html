@@ -1,30 +1,20 @@
 <div>
-    <div class="hidden">{{ flask_util_js.js }}</div>
-    <select id="device_{{ book.id }}" name="Device" style="max-width:90%;">
-        {% for dev in current_user.devices %}
-            <option value={{ dev.email }}>{{ dev.name }}</option>
-        {% endfor %}
-        <option value={{ current_user.email }}>{{ current_user.email }}</option>
-    </select>
-
-    <select id="format_{{ book.id }}" name="Format">
-        {% for data in book.data %}
-            <option value={{ data.format }}>{{ data.format }}</option>
-        {% endfor %}s
-    </select>
-    <br>
-    <span>
-        <a href="javascript:send_book('{{ book.id }}','#device_{{ book.id }} :selected','#format_{{ book.id }} :selected','#send_{{ book.id }}','#msg_{{ book.id }}')">
-            <button id="send_{{ book.id }}">Send to Device</button>
-        </a>
-    </span>
-    <a href="javascript:download_book('{{ book.id }}','#format_{{ book.id }} :selected','#download_{{ book.id }}','{{ book.data[0].name }}')">
-        <button id="download_{{ book.id }}"><i class="fas fa-chevron-down"></i></button>
-    </a>
-    <br>
-    <span id="msg_{{ book.id }}" class="hidden"><p></p></span>
-
     <script type="text/javascript">
+        function match_format(book_id){
+            let devices = document.getElementById(`device_${book_id}`);
+            if (devices.value.includes("kindle")) {
+                let formats = document.getElementById(`format_${book_id}`);
+                let available_formats = Object.values(formats.options).map(x => x.text);
+                let kindle_fmts = ['MOBI', 'AZW1', 'AZW2', 'AZW3', 'PRC', 'TXT', 'PDF'];
+                for (let i = 0; i < kindle_fmts.length; i++){
+                    if (available_formats.includes(kindle_fmts[i])) {
+                        formats.selectedIndex = available_formats.indexOf(kindle_fmts[i])
+                        break;
+                    }
+                }
+            }
+        }
+
         function send_book(bookId, emailElem, formatElem, sendElem, msgElem) {
             $(sendElem).html('<img src="{{ url_for('static', filename='images/loading.gif') }}">');
             console.log(bookId);
@@ -67,7 +57,33 @@
                     a.click();
                     window.URL.revokeObjectURL(url);})
                 .catch(() => alert('oh no!'));
-            $(downloadElem).html("<i class=\"fas fa-chevron-down\"></i>");
+            $(downloadElem).html("<i class=\"fas fa-file-download\"></i>");
         }
     </script>
+
+    <div class="hidden">{{ flask_util_js.js }}</div>
+    <select id="device_{{ book.id }}" name="Device" style="max-width:90%;" onchange="match_format({{ book.id }})">
+        {% for dev in current_user.devices %}
+            <option value={{ dev.email }}>{{ dev.name }}</option>
+        {% endfor %}
+        <option value={{ current_user.email }}>{{ current_user.email }}</option>
+    </select>
+
+    <select id="format_{{ book.id }}" name="Format">
+        {% for data in book.data %}
+            <option value={{ data.format }}>{{ data.format }}</option>
+        {% endfor %}s
+    </select>
+    <script>match_format({{ book.id }})</script>
+    <br>
+    <span>
+        <a href="javascript:send_book('{{ book.id }}','#device_{{ book.id }} :selected','#format_{{ book.id }} :selected','#send_{{ book.id }}','#msg_{{ book.id }}')">
+            <button id="send_{{ book.id }}">Send to Device</button>
+        </a>
+    </span>
+    <a href="javascript:download_book('{{ book.id }}','#format_{{ book.id }} :selected','#download_{{ book.id }}','{{ book.data[0].name }}')">
+        <button id="download_{{ book.id }}"><i class="fas fa-file-download"></i></button>
+    </a>
+    <br>
+    <span id="msg_{{ book.id }}" class="hidden"><p></p></span>
 </div>
