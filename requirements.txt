@@ -19,7 +19,7 @@ flask-util-js==0.2.25
 Flask-WTF==0.14.3
 idna==2.9
 itsdangerous==1.1.0
-Jinja2==2.11.2
+Jinja2==2.11.3
 limits==1.5.1
 Mako==1.1.2
 MarkupSafe==1.1.1
